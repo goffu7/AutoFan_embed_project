@@ -27,7 +27,7 @@ unsigned char signupOk = false;
 float tempThreshold = 30.0;   // Temperature threshold
 int ldrThreshold = 700;       // LDR threshold
 int micThreshold = 1600;       // Microphone threshold
-int mq2Threshold = 5000;       // MQ2 Analog threshold
+int mq2Threshold = 2520;       // MQ2 Analog threshold
 
 void setup() {
   Serial.begin(115200);
