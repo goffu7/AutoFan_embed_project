@@ -25,9 +25,9 @@ FirebaseConfig config;
 // Thresholds
 unsigned char signupOk = false;
 float tempThreshold = 30.0;   // Temperature threshold
-int ldrThreshold = 800;       // LDR threshold
-int micThreshold = 1900;       // Microphone threshold
-int mq2Threshold = 2000;       // MQ2 Analog threshold
+int ldrThreshold = 700;       // LDR threshold
+int micThreshold = 1600;       // Microphone threshold
+int mq2Threshold = 5000;       // MQ2 Analog threshold
 
 void setup() {
   Serial.begin(115200);
@@ -91,16 +91,46 @@ void loop() {
     Serial.printf("MQ2 Analog: %d, MQ2 Digital: %d, T447: %d\n", mq2Analog, mq2Digital, t447Value);
 
     // Trigger Piezo Buzzer based on thresholds
-    if (temperature > tempThreshold || ldrValue > ldrThreshold || micValue > micThreshold ||
-        mq2Analog > mq2Threshold || mq2Digital == 1 || t447Value == 1) {
+    if (temperature > tempThreshold ) {
+      Serial.println("temp!!!!!");
       digitalWrite(PIEZO_PIN, HIGH);
       delay(500);
       digitalWrite(PIEZO_PIN, LOW);
       delay(500);
-    } else {
+    } 
+
+    if(ldrValue > ldrThreshold) {
+      Serial.println("ldr!!!!!");
+      digitalWrite(PIEZO_PIN, HIGH);
+      delay(500);
       digitalWrite(PIEZO_PIN, LOW);
+      delay(500);
+    }
+
+    if(micValue > micThreshold) {
+      Serial.println("mic!!!!!");
+      digitalWrite(PIEZO_PIN, HIGH);
+      delay(500);
+      digitalWrite(PIEZO_PIN, LOW);
+      delay(500);
+    }
+
+    if(mq2Analog > mq2Threshold) {
+      Serial.println("mq2!!!!!");
+      digitalWrite(PIEZO_PIN, HIGH);
+      delay(500);
+      digitalWrite(PIEZO_PIN, LOW);
+      delay(500);
+    }
+
+    if(t447Value == 0) {
+      Serial.println("t447!!!!!");
+      digitalWrite(PIEZO_PIN, HIGH);
+      delay(500);
+      digitalWrite(PIEZO_PIN, LOW);
+      delay(500);
     }
   }
 
-  delay(5000);  // Small delay for stability
+  delay(500);  // Small delay for stability
 }
