@@ -32,8 +32,8 @@ int micValue = 0;
 float readTemperature()
 {
   int adcValue = analogRead(TEMP_PIN);
-  float voltage = (adcValue / 4095.0) * 3.3; // Assuming 3.3V reference voltage
-  float tempC = (voltage - 0.5) * 100.0;     // Convert voltage to temperature
+  float voltage = (adcValue / 3048.0) * 3.3; // Assuming 3.3V reference voltage
+  float tempC = voltage  * 100.0;     // Convert voltage to temperature
   return tempC;
 }
 
@@ -73,7 +73,7 @@ void setup()
 
 void loop()
 {
-  if (Firebase.ready() && signupOk && (millis() - sendDataPrevMillis > 500 || sendDataPrevMillis == 0))
+  if (Firebase.ready() && signupOk && (millis() - sendDataPrevMillis > 1000 || sendDataPrevMillis == 0))
   { // delay 5 seconds
     sendDataPrevMillis = millis();
     // Read Sensor Data
